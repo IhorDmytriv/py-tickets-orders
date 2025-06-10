@@ -169,6 +169,10 @@ class OrderSerializer(serializers.ModelSerializer):
             return order
 
 
+class OrderDetailSerializer(OrderSerializer):
+    tickets = TicketPlaceSerializer(many=True, read_only=False)
+
+
 class OrderListSerializer(serializers.ModelSerializer):
     tickets = TicketListSerializer(many=True, read_only=True)
 

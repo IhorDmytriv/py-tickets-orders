@@ -68,11 +68,6 @@ class MovieSessionViewSet(viewsets.ModelViewSet):
         return MovieSessionSerializer
 
 
-# class TicketViewSet(viewsets.ModelViewSet):
-#     queryset = Ticket.objects.all().
-#     serializer_class = TicketSerializer
-
-
 class OrderSetPagination(PageNumberPagination):
     page_size = 1
     page_size_query_param = "page_size"
@@ -92,6 +87,9 @@ class OrderViewSet(viewsets.ModelViewSet):
                 "tickets__movie_session__cinema_hall"
             )
         return queryset.distinct()
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
     def get_serializer_class(self):
         serializer_class = self.serializer_class
